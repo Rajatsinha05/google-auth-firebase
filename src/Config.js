@@ -1,13 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth,GoogleAuthProvider,signInWithPopup} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth,GoogleAuthProvider,sendEmailVerification,sendPasswordResetEmail,signInWithEmailAndPassword,signInWithPopup} from 'firebase/auth'
 const firebaseConfig = {
-  apiKey: "AIzaSyBWq8PQlccu4zWEzYHbDRuLBgydPCB2jJk",
-  authDomain: "react-b9521.firebaseapp.com",
-  projectId: "react-b9521",
-  storageBucket: "react-b9521.appspot.com",
-  messagingSenderId: "585747328687",
-  appId: "1:585747328687:web:29d333079bd97ad04aae5a"
+  apiKey: "AIzaSyCpENPqp-ioXjP-19-XuEPGaxyd10LAXsc",
+  authDomain: "email-554fe.firebaseapp.com",
+  projectId: "email-554fe",
+  storageBucket: "email-554fe.appspot.com",
+  messagingSenderId: "274001914086",
+  appId: "1:274001914086:web:cbe4cc27bb0a2f3b777327"
 };
 
 // Initialize Firebase
@@ -19,4 +19,18 @@ return signInWithPopup(auth,provider)
 }
 export const logout=()=>{
     return auth.signOut()
+  }
+
+  export const emailAuth=async (email,password)=>{
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    sendEmailVerification(userCredential.user);
+    return userCredential;
+  }
+
+  export const EmaiLogin=(email,password)=>{
+    return signInWithEmailAndPassword(auth,email,password)
+  } 
+
+  export const reset=(email)=>{
+    return sendPasswordResetEmail(auth,email)
   }
